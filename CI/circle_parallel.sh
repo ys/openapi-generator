@@ -36,7 +36,7 @@ elif [ "$NODE_INDEX" = "2" ]; then
     # look for outdated samples
     ./bin/utils/ensure-up-to-date
   fi
-  echo "Running node $NODE_INDEX to test haskell"
+  echo "Running node $NODE_INDEX to test haskell, r, etc"
   # install haskell
   curl -sSL https://get.haskellstack.org/ | sh
   stack upgrade
@@ -51,6 +51,10 @@ elif [ "$NODE_INDEX" = "2" ]; then
   # install curl
   sudo apt-get -y build-dep libcurl4-gnutls-dev
   sudo apt-get -y install libcurl4-gnutls-dev
+
+  # install erlang, elixir
+  wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb && sudo dpkg -i erlang-solutions_1.0_all.deb
+  sudo apt-get install elixir
 
   # run integration tests
   mvn --no-snapshot-updates --quiet verify -Psamples.misc -Dorg.slf4j.simpleLogger.defaultLogLevel=error
